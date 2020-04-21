@@ -2,7 +2,7 @@
 #include "mgos_zswitch.h"
 
 #ifdef MGOS_HAVE_MJS
-#include "mgos_mjs.h"
+#include "mjs.h"
 #endif /* MGOS_HAVE_MJS */
 
 struct mg_zswitch_state_handler {
