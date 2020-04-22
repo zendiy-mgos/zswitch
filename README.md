@@ -1,3 +1,3 @@
 # ZenSwitch
 ## Overview
-A Mongoose OS library for ZenSwitch eco-system.
+A Mongoose OS library for Zen Switches ecosystem.
