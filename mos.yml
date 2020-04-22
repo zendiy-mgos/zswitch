@@ -1,6 +1,6 @@
 author: ZenDIY
 type: lib
-description: ZenSwitch
+description: Mongoose OS library for Zen Switches ecosystem
 version: 1.0
 
 sources:
