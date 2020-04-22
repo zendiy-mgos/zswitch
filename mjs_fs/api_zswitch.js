@@ -21,6 +21,12 @@ let ZenSwitch = {
     }
     return r;
   },
+
+  _scon: function(s) {
+    if (s === 1) return true;
+    if (s === 0) return false;
+    return s;
+  },
  
   // ## **`ZenSwitch.create(id, cfg)`**
   //
@@ -35,8 +41,11 @@ let ZenSwitch = {
   // ```
   create: function(id, cfg) {
     if (!cfg) cfg = {};
-    let cfgo = ZenSwitch._cfgc(cfg.groupId || -1, cfg.inchingTimeout || -1,
-      cfg.inchingLock || false, cfg.switchingTime || -1);
+    let cfgo = ZenSwitch._cfgc(
+      cfg.groupId || -1,
+      cfg.inchingTimeout || -1,
+      ((cfg.inchingLock === undefined || cfg.inchingLock === null) ? false : cfg.inchingLock),
+      cfg.switchingTime || -1);
     // create the handle
     let handle = ZenSwitch._crt(id, cfgo);
     ZenThing._free(cfgo);
@@ -55,23 +64,25 @@ let ZenSwitch = {
   _proto: {
     handle: null,
     _onCreate: [],
-    _onCreateSub(f) {
+    _onCreateSub: function(f) {
     	this._onCreate.push(f);
     },
 
     setState: function(state) {
       if (state === true || state === false) {
-        return this._sset(this.handle, state);
+        return ZenSwitch._sset(this.handle, state);
       }
       return false;
     },
     
     getState: function() {
-      return this._sget(this.handle);
+      return ZenSwitch._scon(
+        ZenSwitch._sget(this.handle)); 
     },
     
     toggleState: function() {
-      return this._stog(this.handle);
+      return ZenSwitch._scon(
+        ZenSwitch._stog(this.handle));
     },
     
     // ## **`object.setStateHandler(handler, userdata)`**
@@ -92,14 +103,15 @@ let ZenSwitch = {
     // }, null);
     // ```
     setStateHandler: function(h, ud) {
-      return this._shset(this.handle, this._shsetf, { h: h, ud: ud });
+      return ZenSwitch._shset(this.handle, this._shsetf, { h: h, ud: ud });
     },
+
     resetStateHandler: function() {
-      this._shres(this.handle);
+      ZenSwitch._shres(this.handle);
     },
     
     close: function() {
-      this._cls(this.handle);
+      ZenSwitch._cls(this.handle);
     },
   },
 };
