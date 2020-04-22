@@ -42,6 +42,10 @@ struct mg_zswitch;
 #define MGOS_ZSWITCH_NO_INCHING 0
 #define MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME 10
 
+#define MGOS_ZSWITCH_CMD_ON "ON"
+#define MGOS_ZSWITCH_CMD_OFF "OFF"
+#define MGOS_ZSWITCH_CMD_TOGGLE "TOGGLE"
+
 #define MGOS_ZSWITCH_CFG {            \
   MGOS_ZSWITCH_NO_GROUP,              \
   MGOS_ZSWITCH_NO_INCHING,            \
