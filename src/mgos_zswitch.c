@@ -21,18 +21,20 @@ struct mg_zswitch {
 
 struct mgos_zswitch *mgos_zswitch_create(const char *id,
                                          struct mgos_zswitch_cfg *cfg) {
-  if (id == NULL || cfg == NULL) return NULL;
+  if (id == NULL) return NULL;
   struct mg_zswitch *handle = calloc(1, sizeof(struct mg_zswitch));
   if (handle != NULL) {
     handle->id = strdup(id);
     handle->type = MGOS_ZTHING_SWITCH;
 
-    handle->cfg.group_id = (cfg->group_id <= 0 ?
-      MGOS_ZSWITCH_NO_GROUP : cfg->group_id);
-    handle->cfg.inching_timeout = (cfg->inching_timeout <= 0 ?
-      MGOS_ZSWITCH_NO_INCHING : cfg->inching_timeout);
-    handle->cfg.inching_lock = cfg->inching_lock;
-    handle->cfg.switching_time = cfg->switching_time;
+    handle->cfg.group_id = (cfg == NULL ? MGOS_ZSWITCH_NO_GROUP : (cfg->group_id <= 0 ?
+      MGOS_ZSWITCH_NO_GROUP : cfg->group_id));
+    handle->cfg.inching_timeout = (cfg == NULL ? MGOS_ZSWITCH_NO_INCHING : (cfg->inching_timeout <= 0 ?
+      MGOS_ZSWITCH_NO_INCHING : cfg->inching_timeout));
+    handle->cfg.inching_lock = (cfg == NULL ? false : cfg->inching_lock);
+    handle->cfg.switching_time = (cfg == NULL ? MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME : (cfg->switching_time < 0 ?
+      MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME : cfg->switching_time));
+    
     handle->inching_timer_id = MGOS_INVALID_TIMER_ID;
     
     if (mgos_zthing_register(MGOS_ZTHING_CAST(handle))) {

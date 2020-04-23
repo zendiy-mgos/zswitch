@@ -45,12 +45,15 @@ let ZenSwitch = {
   // });
   // ```
   create: function(id, cfg) {
-    if (!cfg) cfg = {};
-    let cfgo = ZenSwitch._cfgc(
-      cfg.groupId || -1,
-      cfg.inchingTimeout || -1,
-      ((cfg.inchingLock === undefined || cfg.inchingLock === null) ? false : cfg.inchingLock),
-      cfg.switchingTime || -1);
+    let cfgo = null;
+    if (cfg) {
+      cfgo = ZenSwitch._cfgc(
+        cfg.groupId || -1,
+        cfg.inchingTimeout || -1,
+        ((cfg.inchingLock === undefined || cfg.inchingLock === null) ? false : cfg.inchingLock),
+        cfg.switchingTime || -1
+      );
+    }
     // create the handle
     let handle = ZenSwitch._crt(id, cfgo);
     ZenThing._free(cfgo);
