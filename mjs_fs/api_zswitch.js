@@ -56,6 +56,7 @@ let ZenSwitch = {
     // create the JS instance
     let obj = Object.create(ZenSwitch._proto);
     obj.handle = handle;
+    obj.id = id;
     // invoke internal on-create callbacks
     let cbs = obj._onCreate;
     for (let i = 0; i < cbs.length; ++i) {
@@ -66,6 +67,7 @@ let ZenSwitch = {
 
   _proto: {
     handle: null,
+    id: null,
     _onCreate: [],
     _onCreateSub: function(f) {
       this._onCreate.push(f);
