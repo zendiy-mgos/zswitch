@@ -58,9 +58,8 @@ let ZenSwitch = {
     obj.handle = handle;
     obj.id = id;
     // invoke internal on-create callbacks
-    let cbs = obj._onCreate;
-    for (let i = 0; i < cbs.length; ++i) {
-    	cbs[i](obj);
+    for (let i = 0; i < obj._onCreate.length; ++i) {
+    	obj._onCreate[i](obj);
     }
     return obj;
   },

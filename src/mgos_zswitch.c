@@ -44,9 +44,9 @@ struct mgos_zswitch *mgos_zswitch_create(const char *id,
     }
     free(handle->id);
     free(handle);
-    LOG(LL_ERROR, ("Error creating switch '%s'. Handle registration failed.", id));
+    LOG(LL_ERROR, ("Error creating '%s'. Handle registration failed.", id));
   } else {
-    LOG(LL_ERROR, ("Error creating switch '%s'. Memory allocation failed.", id));
+    LOG(LL_ERROR, ("Error creating '%s'. Memory allocation failed.", id));
   }
   return NULL;
 }
@@ -62,7 +62,10 @@ bool mgos_zswitch_state_handler_set(struct mgos_zswitch *handle,
                                     void *user_data) {
   if (handle == NULL || handler == NULL) return false;
   struct mg_zswitch *h = MG_ZSWITCH_CAST(handle);
-  if (h->state_handler.invoke != NULL) return false;
+  if (h->state_handler.invoke != NULL) {
+    LOG(LL_ERROR, ("Error setting state handler for '%s'. Handler already set.", handle->id));
+    return false;
+  }
   h->state_handler.invoke = handler;
   h->state_handler.user_data = user_data;
   return true;
