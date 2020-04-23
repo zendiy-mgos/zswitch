@@ -11,7 +11,7 @@ filesystem:
   - fs
 config_schema:
 libs:
-
+  - origin: https://github.com/zendiy-mgos/zthing
 tags:
   - c
   - docs:misc:ZenSwitch
