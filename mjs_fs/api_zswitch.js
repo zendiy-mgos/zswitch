@@ -17,7 +17,7 @@ let ZenSwitch = {
     let s = s2o(state, sd);
     let r = ud.h(act, s, ud.ud);
     if (act === ZenThing.ACT_STATE_GET) {
-      this._ss(state, s.value);  
+      this._ss(state, ZenSwitch._scon(s.value));  
     }
     return r;
   },
@@ -105,6 +105,7 @@ let ZenSwitch = {
     //   } else if (act === ZenThing.ACT_STATE_GET) {
     //     state.value = /* current switch state */
     //   }
+    //   return true;
     // }, null);
     // ```
     setStateHandler: function(h, ud) {
