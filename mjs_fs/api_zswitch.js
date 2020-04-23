@@ -27,11 +27,6 @@ let ZenSwitch = {
     if (s === 0) return false;
     return s;
   },
-
-  _onCreate: [],
-  _onCreateSub: function(f) {
-    this._onCreate.push(f);
-  },
  
   // ## **`ZenSwitch.create(id, cfg)`**
   //
@@ -62,7 +57,7 @@ let ZenSwitch = {
     let obj = Object.create(ZenSwitch._proto);
     obj.handle = handle;
     // invoke internal on-create callbacks
-    let cbs = ZenSwitch._onCreate;
+    let cbs = this._onCreate;
     for (let i = 0; i < cbs.length; ++i) {
     	cbs[i](obj);
     }
@@ -71,6 +66,10 @@ let ZenSwitch = {
 
   _proto: {
     handle: null,
+    _onCreate: [],
+    _onCreateSub: function(f) {
+      this._onCreate.push(f);
+    },
 
     setState: function(state) {
       if (state === true || state === false) {
