@@ -23,10 +23,10 @@ let ZenSwitch = {
     return r;
   },
 
-  _scon: function(s) {
-    if (s === 1) return true;
-    if (s === 0) return false;
-    return s;
+  _scon: function(val) {
+    if (val === 1) return true;
+    if (val === 0) return false;
+    return val;
   },
 
   _onCreate: [],
