@@ -16,7 +16,9 @@ let ZenSwitch = {
     let s = s2o(state, sd);
     let r = ud.h(act, s, ud.ud);
     if (act === ZenThing.ACT_STATE_GET) {
-      this._ss(state, ZenSwitch._scon(s.value));  
+      print('VALUE:', s.value);
+      print('VALUE 2:', this._scon(s.value));
+      this._ss(state, this._scon(s.value));  
     }
     return r;
   },
