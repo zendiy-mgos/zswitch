@@ -28,7 +28,26 @@ extern "C" {
 
 #define MGOS_ZTHING_SWITCH (4 | MGOS_ZTHING_ACTUATOR)
 
-#define MGOS_ZSWITCH_BASE MGOS_ZTHING_BASE
+#ifdef MGOS_HAVE_MJS
+
+#define MJS_ZSWITCH_DESCR \
+  MJS_ZTHING_DESCR
+
+static const struct mjs_c_struct_member mjs_zswitch_descr[] = {
+  MJS_ZSWITCH_DESCR
+  {NULL, 0, MJS_STRUCT_FIELD_TYPE_INVALID, NULL},
+};
+
+#endif /* MGOS_HAVE_MJS */
+
+/* WARN: if you change MGOS_ZSWITCH_BASE below,
+   you must update the above MJS_ZSWITCH_DESCR as well. */
+   
+#define MGOS_ZSWITCH_BASE \
+  MGOS_ZTHING_BASE
+
+/* WARN: if you change the struct 'mgos_zswitch' below,
+   you must update the above MJS_ZSWITCH_DESCR as well. */
 
 struct mgos_zswitch {
   MGOS_ZSWITCH_BASE

@@ -10,10 +10,9 @@ let ZenSwitch = {
   _cls: ffi('void mgos_zswitch_close(void *)'),
   _cfgc: ffi('void *mjs_zswitch_cfg_create(int, int, bool , int)'),
   _ss: ffi('void mjs_zswitch_state_set(void *, bool)'),
-  _sdg: ffi('void *mjs_zswitch_state_descr_get(void)'),
 
   _shsetf: function(act, state, ud) {
-    let sd = this._sdg(); 
+    let sd = ffi('void *mjs_zswitch_state_descr_get(void)')(); 
     let s = s2o(state, sd);
     let r = ud.h(act, s, ud.ud);
     if (act === ZenThing.ACT_STATE_GET) {
