@@ -109,7 +109,7 @@ let ZenSwitch = {
     // }, null);
     // ```
     setStateHandler: function(h, ud) {
-      return ZenSwitch._shset(this.handle, this._shsetf, { h: h, ud: ud });
+      return ZenSwitch._shset(this.handle, ZenSwitch._shsetf, { h: h, ud: ud });
     },
 
     resetStateHandler: function() {
