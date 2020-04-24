@@ -22,6 +22,10 @@
 #include <stdbool.h>
 #include "mgos_zthing.h"
 
+#ifdef MGOS_HAVE_MJS
+#include "mjs.h"
+#endif /* MGOS_HAVE_MJS */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -42,7 +46,7 @@ static const struct mjs_c_struct_member mjs_zswitch_descr[] = {
 
 /* WARN: if you change MGOS_ZSWITCH_BASE below,
    you must update the above MJS_ZSWITCH_DESCR as well. */
-   
+
 #define MGOS_ZSWITCH_BASE \
   MGOS_ZTHING_BASE
 
