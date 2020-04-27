@@ -93,7 +93,8 @@ let ZenSwitch = {
     //
     // Example:
     // ```javascript
-    // sw.setEventHandler(function(act, switch, state, ud) {
+    // sw.setEventHandler(function(act, sw, state, ud) {
+    //   print('Switch ID', sw.id);
     //   if (act === ZenThing.ACT_STATE_SET) {
     //     if (state.value) {
     //       /* switch ON */
