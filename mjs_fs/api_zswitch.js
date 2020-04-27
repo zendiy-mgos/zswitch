@@ -11,22 +11,24 @@ let ZenSwitch = {
   _cfgc: ffi('void *mjs_zswitch_cfg_create(int, int, bool , int)'),
   _ss: ffi('void mjs_zswitch_state_set(void *, bool)'),
 
+  _scon: function(val) {
+    print('Inside this._scon()');
+    print('Input val=', val);
+    if (val === 1) return true;
+    if (val === 0) return false;
+    return val;
+  },
+
   _shsetf: function(act, state, ud) {
     let sd = ffi('void *mjs_zswitch_state_descr_get(void)')(); 
     let s = s2o(state, sd);
     let r = ud.h(act, s, ud.ud);
     if (act === ZenThing.ACT_STATE_GET) {
       print('VALUE:', s.value);
-      print('VALUE 2:', this._scon(s.value));
+      print('OUTSIDE this._scon returned', this._scon(s.value));
       this._ss(state, this._scon(s.value));  
     }
     return r;
-  },
-
-  _scon: function(val) {
-    if (val === 1) return true;
-    if (val === 0) return false;
-    return val;
   },
 
   _onCreate: [],
