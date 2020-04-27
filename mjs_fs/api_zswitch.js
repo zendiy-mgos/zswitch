@@ -24,9 +24,10 @@ let ZenSwitch = {
     let s = s2o(state, sd);
     let r = ud.h(act, s, ud.ud);
     if (act === ZenThing.ACT_STATE_GET) {
-      print('VALUE:', s.value);
-      print('OUTSIDE this._scon returned', this._scon(s.value));
-      this._ss(state, this._scon(s.value));  
+      let ns = s.value;
+      print('VALUE:', s);
+      print('OUTSIDE this._scon returned', this._scon(ns));
+      this._ss(state, this._scon(ns));  
     }
     return r;
   },
