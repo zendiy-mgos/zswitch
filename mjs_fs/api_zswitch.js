@@ -12,22 +12,17 @@ let ZenSwitch = {
   _ss: ffi('void mjs_zswitch_state_set(void *, bool)'),
 
   _scon: function(val) {
-    print('Inside this._scon()');
-    print('Input val=', val);
     if (val === 1) return true;
     if (val === 0) return false;
     return val;
   },
 
-  _shsetf: function(act, state, ud) {
+  _shset_cb: function(act, state, ud) {
     let sd = ffi('void *mjs_zswitch_state_descr_get(void)')(); 
     let s = s2o(state, sd);
     let r = ud.h(act, s, ud.ud);
     if (act === ZenThing.ACT_STATE_GET) {
-      let ns = s.value;
-      print('VALUE:', ns);
-      print('OUTSIDE this._scon returned', ZenSwitch._scon(ns));
-      this._ss(state, ZenSwitch._scon(ns));  
+      ZenSwitch._ss(state, ZenSwitch._scon(s.value));  
     }
     return r;
   },
@@ -113,7 +108,7 @@ let ZenSwitch = {
     // }, null);
     // ```
     setStateHandler: function(h, ud) {
-      return ZenSwitch._shset(this.handle, ZenSwitch._shsetf, { h: h, ud: ud });
+      return ZenSwitch._shset(this.handle, ZenSwitch._shset_cb, { h: h, ud: ud });
     },
 
     resetStateHandler: function() {
