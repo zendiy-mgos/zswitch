@@ -249,7 +249,8 @@ void mjs_zswitch_state_set(struct mgos_zswitch_state *state,
 }
 
 static const struct mjs_c_struct_member mjs_zswitch_state_descr[] = {
-  {"handle", offsetof(struct mgos_zswitch_state, handle), MJS_STRUCT_FIELD_TYPE_STRUCT_PTR, mjs_zswitch_descr},
+  //{"handle", offsetof(struct mgos_zswitch_state, handle), MJS_STRUCT_FIELD_TYPE_STRUCT_PTR, mjs_zswitch_descr},
+  {"handle", offsetof(struct mgos_zswitch_state, handle), MJS_STRUCT_FIELD_TYPE_VOID_PTR, NULL}, 
   {"value", offsetof(struct mgos_zswitch_state, value), MJS_STRUCT_FIELD_TYPE_BOOL, NULL},
   {NULL, 0, MJS_STRUCT_FIELD_TYPE_INVALID, NULL},
 };

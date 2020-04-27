@@ -20,7 +20,7 @@ let ZenSwitch = {
   _shset_cb: function(act, state, ud) {
     let sd = ffi('void *mjs_zswitch_state_descr_get(void)')(); 
     let s = s2o(state, sd);
-    let r = ud.h(act, s, ud.ud);
+    let r = ud.h(act, ud.zt, s, ud.ud);
     if (act === ZenThing.ACT_STATE_GET) {
       ZenSwitch._ss(state, ZenSwitch._scon(s.value));  
     }
@@ -93,8 +93,7 @@ let ZenSwitch = {
     //
     // Example:
     // ```javascript
-    // sw.setEventHandler(function(act, state, ud) {
-    //   let handle = state.handle;
+    // sw.setEventHandler(function(act, switch, state, ud) {
     //   if (act === ZenThing.ACT_STATE_SET) {
     //     if (state.value) {
     //       /* switch ON */
@@ -108,7 +107,11 @@ let ZenSwitch = {
     // }, null);
     // ```
     setStateHandler: function(h, ud) {
-      return ZenSwitch._shset(this.handle, ZenSwitch._shset_cb, { h: h, ud: ud });
+      return ZenSwitch._shset(this.handle, ZenSwitch._shset_cb, {
+        h: h,
+        zt: this,
+        ud: ud
+      });
     },
 
     resetStateHandler: function() {
