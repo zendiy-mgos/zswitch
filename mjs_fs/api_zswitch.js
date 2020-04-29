@@ -10,6 +10,7 @@ let ZenSwitch = {
   _cls: ffi('void mgos_zswitch_close(void *)'),
   _cfgc: ffi('void *mjs_zswitch_cfg_create(int, int, bool , int)'),
   _ss: ffi('void mjs_zswitch_state_set(void *, bool)'),
+  _stated: ffi('void *mjs_zswitch_state_descr_get(void)'),
 
   THING_TYPE: (4 | ZenThing.TYPE_ACTUATOR),
 
@@ -20,13 +21,9 @@ let ZenSwitch = {
   },
 
   _shset_cb: function(act, state, ud) {
-    // convert strucy zswitch_state to js object {handle:<object>, value:<bool>, thing:<ZenSwitch>}
-    let sd = ffi('void *mjs_zswitch_state_descr_get(void)')(); 
-    let s = s2o(state, sd);
-    s.thing = ZenThing._getTFromH(s.handle);
+    let s = ZenSwitch.parseState(state);
     // invoke callback
     let r = ud.h(act, s, ud.ud);
-    
     if (act === ZenThing.ACT_STATE_GET) {
       ZenSwitch._ss(state, ZenSwitch._scon(s.value));  
     }
@@ -69,6 +66,16 @@ let ZenSwitch = {
     ZenThing._onCreatePub(obj);
 
     return obj;
+  },
+
+  // convert strucy zswitch_state to js object {value:<bool>, thing:<ZenSwitch>}
+  parseState: function(state) {
+    let sd = this._stated(); 
+    let s = s2o(state, sd);
+    return {
+      thing: ZenThing._getTFromH(s.handle),
+      value: s.value
+    };
   },
 
   _proto: {
