@@ -11,6 +11,8 @@ let ZenSwitch = {
   _cfgc: ffi('void *mjs_zswitch_cfg_create(int, int, bool , int)'),
   _ss: ffi('void mjs_zswitch_state_set(void *, bool)'),
 
+  THING_TYPE: (4 | ZenThing.TYPE_ACTUATOR),
+
   _scon: function(val) {
     if (val === 1) return true;
     if (val === 0) return false;
@@ -18,18 +20,17 @@ let ZenSwitch = {
   },
 
   _shset_cb: function(act, state, ud) {
+    // convert strucy zswitch_state to js object {handle:<object>, value:<bool>, thing:<ZenSwitch>}
     let sd = ffi('void *mjs_zswitch_state_descr_get(void)')(); 
     let s = s2o(state, sd);
-    let r = ud.h(act, ud.zt, s, ud.ud);
+    s.thing = ZenThing._getTFromH(s.handle);
+    // invoke callback
+    let r = ud.h(act, s, ud.ud);
+    
     if (act === ZenThing.ACT_STATE_GET) {
       ZenSwitch._ss(state, ZenSwitch._scon(s.value));  
     }
     return r;
-  },
-
-  _onCreate: [],
-  _onCreateSub: function(f) {
-    this._onCreate.push(f);
   },
  
   // ## **`ZenSwitch.create(id, cfg)`**
@@ -57,14 +58,16 @@ let ZenSwitch = {
     let handle = ZenSwitch._crt(id, cfgo);
     ZenThing._free(cfgo);
     if (!handle) return null; 
+    
     // create the JS instance
     let obj = Object.create(ZenSwitch._proto);
     obj.handle = handle;
     obj.id = id;
-    // invoke internal on-create callbacks
-    for (let i = 0; i < ZenSwitch._onCreate.length; ++i) {
-    	ZenSwitch._onCreate[i](obj);
-    }
+    obj.type = ZenSwitch.THING_TYPE;
+    
+    // raise on-create event
+    ZenThing._onCreatePub(obj);
+
     return obj;
   },
 
@@ -93,8 +96,8 @@ let ZenSwitch = {
     //
     // Example:
     // ```javascript
-    // sw.setEventHandler(function(act, sw, state, ud) {
-    //   print('Switch ID', sw.id);
+    // sw.setEventHandler(function(act, state, ud) {
+    //   print('Switch ID', state.thing.id);
     //   if (act === ZenThing.ACT_STATE_SET) {
     //     if (state.value) {
     //       /* switch ON */
@@ -110,7 +113,6 @@ let ZenSwitch = {
     setStateHandler: function(h, ud) {
       return ZenSwitch._shset(this.handle, ZenSwitch._shset_cb, {
         h: h,
-        zt: this,
         ud: ud
       });
     },
