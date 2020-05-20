@@ -2,6 +2,20 @@
 ## Overview
 A Mongoose OS library for Zen Switches ecosystem.
 ## C/C++ API Reference
+### mgos_zswitch
+```c
+struct mgos_zswitch {
+  char *id;
+  int type;
+};
+```
+
+Switch handle.
+
+|Fields||
+|--|--|
+|id|Switch unique ID|
+|type|Fixed value: `MGOS_ZTHING_SWITCH`.|
 ### mgos_zswitch_create()
 ```c
 struct mgos_zswitch *mgos_zswitch_create(const char *id, struct mgos_zswitch_cfg *cfg);
