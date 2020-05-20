@@ -33,7 +33,7 @@ Close and destroy the switch instance.
 
 |Parameter||
 |--|--|
-|handle|Switch handle|
+|handle|Switch handle.|
 ### mgos_zswitch_state_handler_set()
 ```c
 bool mgos_zswitch_state_handler_set(struct mgos_zswitch *handle,
@@ -44,9 +44,9 @@ Set the handler for manaing (get/set) switch state. Return `true` on success, `f
 
 |Parameter||
 |--|--|
-|handle|Switch handle|
-|handler|State handler|
-|user_data|Handler user-data|
+|handle|Switch handle.|
+|handler|State handler.|
+|user_data|Handler user-data.|
 
 **Example** - Set and handler that manages (read/write) switch state unsing a GPIO.
 ```c
@@ -68,4 +68,51 @@ bool zswitch_state_handler(enum mgos_zthing_state_act act, struct mgos_zswitch_s
 
 struct mgos_zswitch *sw = mgos_zswitch_create("sw-1", NULL);
 mgos_zswitch_state_handler_set(sw, zswitch_state_handler, NULL);
+```
+### mgos_zswitch_state_handler_reset()
+```c
+void mgos_zswitch_state_handler_reset(struct mgos_zswitch *handle);
+```
+Reset the state handler previously set using `mgos_zswitch_state_handler_set(...)` function.
+
+|Parameter||
+|--|--|
+|handle|Switch handle.|
+### mgos_zswitch_state_set()
+```c
+bool mgos_zswitch_state_set(struct mgos_zswitch *handle, bool state);
+```
+Set switch state (ON or OFF). Return `true` on success, `false` otherwise.  
+
+|Parameter||
+|--|--|
+|handle|Switch handle.|
+|state|Desired state: `true`=ON, `false`=OFF.|
+
+**Example** - Turn the switch ON.
+```c
+if (mgos_zswitch_state_set(sw, true)) {
+  LOG(LL_INFO, ("Switch '%s' successfully turned ON.", sw->id));
+} else {
+  LOG(LL_ERROR, ("Error tunring ON switch '%s'.", sw->id));
+}
+```
+### mgos_zswitch_state_toggle()
+```c
+int mgos_zswitch_state_toggle(struct mgos_zswitch *handle);
+```
+Toggle switch state. Return the new state (`true` or `false`), `MGOS_ZTHING_RESULT_ERROR` on error.  
+
+|Parameter||
+|--|--|
+|handle|Switch handle.|
+
+**Example** - Toggle the switch.
+```c
+int state = mgos_zswitch_state_toggle(sw);
+if (state == MGOS_ZTHING_RESULT_ERROR) {
+  LOG(LL_ERROR, ("Error toggling switch '%s'.", sw->id));
+} else {
+  LOG(LL_INFO, ("Switch '%s' successfully turned %s.", sw->id, (state == true ? "ON" : "OFF")));
+}
 ```
