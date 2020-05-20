@@ -6,7 +6,7 @@ A Mongoose OS library for Zen Switches ecosystem.
 ```c
 struct mgos_zswitch *mgos_zswitch_create(const char *id, struct mgos_zswitch_cfg *cfg);
 ```
-Create and initialize the switch instance. Return the instance handle, or `NULL` on error.
+Create and initialize the switch instance. Returns the instance handle, or `NULL` on error.
 
 |Parameter||
 |--|--|
@@ -40,7 +40,7 @@ bool mgos_zswitch_state_handler_set(struct mgos_zswitch *handle,
                                     mgos_zswitch_state_handler_t handler,
                                     void *user_data);
 ```
-Set the handler for manaing (get/set) switch state. Return `true` on success, `false` otherwise.  
+Set the handler for manaing (get/set) switch state. Returns `true` on success, `false` otherwise.  
 
 |Parameter||
 |--|--|
@@ -82,12 +82,12 @@ Reset the state handler previously set using `mgos_zswitch_state_handler_set(...
 ```c
 bool mgos_zswitch_state_set(struct mgos_zswitch *handle, bool state);
 ```
-Set switch state (ON or OFF). Return `true` on success, `false` otherwise.  
+Set switch state (ON or OFF). Returns `true` on success, `false` otherwise.  
 
 |Parameter||
 |--|--|
 |handle|Switch handle.|
-|state|Desired state: `true`=ON, `false`=OFF.|
+|state|Desired state (`true`=ON, `false`=OFF).|
 
 **Example** - Turn the switch ON.
 ```c
@@ -101,7 +101,7 @@ if (mgos_zswitch_state_set(sw, true)) {
 ```c
 int mgos_zswitch_state_toggle(struct mgos_zswitch *handle);
 ```
-Toggle switch state. Return the new state (`true` or `false`), `MGOS_ZTHING_RESULT_ERROR` on error.  
+Toggle switch state. Returns the new state (`true` or `false`), `MGOS_ZTHING_RESULT_ERROR` on error.  
 
 |Parameter||
 |--|--|
@@ -114,5 +114,24 @@ if (state == MGOS_ZTHING_RESULT_ERROR) {
   LOG(LL_ERROR, ("Error toggling switch '%s'.", sw->id));
 } else {
   LOG(LL_INFO, ("Switch '%s' successfully turned %s.", sw->id, (state == true ? "ON" : "OFF")));
+}
+```
+### mgos_zswitch_state_get()
+```c
+int mgos_zswitch_state_get(struct mgos_zswitch *handle);
+```
+Get switch state. Returns `true` or `false` in case the switch is ON or OFF, `MGOS_ZTHING_RESULT_ERROR` on error.  
+
+|Parameter||
+|--|--|
+|handle|Switch handle.|
+
+**Example** - Toggle the switch.
+```c
+int state = mgos_zswitch_state_get(sw);
+if (state == MGOS_ZTHING_RESULT_ERROR) {
+  LOG(LL_ERROR, ("Error reading state of switch '%s'.", sw->id));
+} else {
+  LOG(LL_INFO, ("Switch '%s' is %s.", sw->id, (state == true ? "ON" : "OFF")));
 }
 ```
