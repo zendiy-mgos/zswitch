@@ -34,6 +34,20 @@ Close and destroy the switch instance.
 |Parameter||
 |--|--|
 |handle|Switch handle.|
+### mgos_zswitch_state
+```c
+struct mgos_zswitch_state {
+  struct mgos_zswitch *handle;
+  bool value;
+};
+```
+
+Switch state for `(*mgos_zswitch_state_handler_t)`.  
+
+|Fields||
+|--|--|
+|handle|Switch handle|
+|state|Switch state.|
 ### (*mgos_zswitch_state_handler_t)
 ```c
 typedef bool (*mgos_zswitch_state_handler_t)(enum mgos_zthing_state_act act,
@@ -55,13 +69,13 @@ bool mgos_zswitch_state_handler_set(struct mgos_zswitch *handle,
                                     mgos_zswitch_state_handler_t handler,
                                     void *user_data);
 ```
-Set the handler for manaing (get/set) switch state. Returns `true` on success, `false` otherwise.  
+Set the handler for managing switch state (get or set). Returns `true` on success, `false` otherwise.  
 
 |Parameter||
 |--|--|
 |handle|Switch handle.|
 |handler|State handler.|
-|user_data|Handler user-data.|
+|user_data|Handler's user-data.|
 
 **Example** - Set and handler that manages (read/write) switch state unsing a GPIO.
 ```c
