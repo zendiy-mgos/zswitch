@@ -34,6 +34,21 @@ Close and destroy the switch instance.
 |Parameter||
 |--|--|
 |handle|Switch handle.|
+### (*mgos_zswitch_state_handler_t)
+```c
+typedef bool (*mgos_zswitch_state_handler_t)(enum mgos_zthing_state_act act,
+                                             struct mgos_zswitch_state *state,
+                                             void *user_data);
+```
+
+Handler signature for `mgos_zswitch_state_handler_set()`.  
+
+|Parameter||
+|--|--|
+|act|The action the handler must manage: `MGOS_ZTHING_STATE_SET` or `MGOS_ZTHING_STATE_GET`|
+|state|Switch state.|
+|user_data|Handler's user-data.|
+
 ### mgos_zswitch_state_handler_set()
 ```c
 bool mgos_zswitch_state_handler_set(struct mgos_zswitch *handle,
