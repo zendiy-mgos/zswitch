@@ -249,14 +249,17 @@ ZenSwitch.create(id, cfg);
 ```
 Create and initialize the switch instance. Returns the instance, or `null` on error.
 
-|Parameter|||
-|--|--|--|
+|Parameter||
+|--|--|
 |id|Unique ZenThing ID|
 |cfg|Optional. Switch configuration. If missing, default configuration values are used.|
-||groupId|Optional. The group to which the switch belongs. Switches in the same group run in interlock mode.|
-||inchingTimeout|Optional. The inching timeout, in milliseconds.|
-||inchingLock|Optional. If `true`, this flag prevents a switch to be turned OFF before its inching timeout.|
-||switchingTime|Optional. The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state.|
+
+|Configuration property||
+|--|--|
+|groupId|Optional. The group to which the switch belongs. Switches in the same group run in interlock mode.|
+|inchingTimeout|Optional. The inching timeout, in milliseconds.|
+|inchingLock|Optional. If `true`, this flag prevents a switch to be turned OFF before its inching timeout.|
+|switchingTime|Optional. The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state.|
 
 **Example 1** - Create a switch using default configuration values.
 ```js
