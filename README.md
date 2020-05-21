@@ -249,7 +249,7 @@ ZenSwitch.create(id, cfg);
 ```
 Create and initialize the switch instance. Returns the instance, or `null` on error.
 
-|Parameter||
+|Parameter|||
 |--|--|--|
 |id|Unique ZenThing ID|
 |cfg|Optional. Switch configuration. If missing, default configuration values are used.|
