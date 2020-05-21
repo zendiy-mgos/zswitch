@@ -9,13 +9,34 @@ struct mgos_zswitch {
   int type;
 };
 ```
-
-Switch handle.
+Switch handle. You can get a valid handle using `gos_zswitch_create()` function.
 
 |Fields||
 |--|--|
 |id|Switch unique ID|
 |type|Fixed value: `MGOS_ZTHING_SWITCH`.|
+
+**Example** - Use handle fields.
+```c
+struct mgos_zswitch *handle = mgos_zswitch_create("sw-1", NULL);
+LOG(LL_INFO, ("ID '%s' detected.", handle->id));
+if ((handle->type & MGOS_ZTHING_SENSOR) == MGOS_ZTHING_SENSOR) {
+  LOG(LL_INFO, ("Sensor's handle detected."));
+}
+if ((handle->type & MGOS_ZTHING_ACTUATOR) == MGOS_ZTHING_ACTUATOR) {
+  LOG(LL_INFO, ("Actuator's handle detected."));
+}
+if (handle->type == MGOS_ZTHING_SWITCH) {
+  LOG(LL_INFO, ("Switch's handle detected."));
+}
+```
+The console output:
+```console
+ID 'sw-1' detected.
+Sensor's handle detected.
+Actuator's handle detected.
+Switch's handle detected.
+```
 ### mgos_zswitch_create()
 ```c
 struct mgos_zswitch *mgos_zswitch_create(const char *id, struct mgos_zswitch_cfg *cfg);
@@ -55,7 +76,6 @@ struct mgos_zswitch_state {
   bool value;
 };
 ```
-
 Switch state for `(*mgos_zswitch_state_handler_t)`.  
 
 |Fields||
@@ -68,7 +88,6 @@ typedef bool (*mgos_zswitch_state_handler_t)(enum mgos_zthing_state_act act,
                                              struct mgos_zswitch_state *state,
                                              void *user_data);
 ```
-
 Handler signature for `mgos_zswitch_state_handler_set()`.  
 
 |Parameter||
@@ -76,7 +95,6 @@ Handler signature for `mgos_zswitch_state_handler_set()`.
 |act|The action the handler must manage: `MGOS_ZTHING_STATE_SET` or `MGOS_ZTHING_STATE_GET`|
 |state|Switch state.|
 |user_data|Handler's user-data.|
-
 ### mgos_zswitch_state_handler_set()
 ```c
 bool mgos_zswitch_state_handler_set(struct mgos_zswitch *handle,
@@ -116,7 +134,7 @@ mgos_zswitch_state_handler_set(sw, zswitch_state_handler, NULL);
 ```c
 void mgos_zswitch_state_handler_reset(struct mgos_zswitch *handle);
 ```
-Reset the state handler previously set using `mgos_zswitch_state_handler_set(...)` function.
+Reset the state handler previously set using `mgos_zswitch_state_handler_set()` function.
 
 |Parameter||
 |--|--|
