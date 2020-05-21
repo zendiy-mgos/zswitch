@@ -318,6 +318,7 @@ Set switch state (ON or OFF). Returns `true` on success, `false` otherwise.
 |Parameter|Type||
 |--|--|--|
 |state|boolean|Desired state (`true`=ON, `false`=OFF).|
+
 **Example** - Turn the switch ON.
 ```javascript
 if(sw.setState(true) === true) {
@@ -346,6 +347,7 @@ if (state === ZenThing.RESULT_ERROR) {
 let state = sw.getState();
 ```
 Get switch state. Returns `true` or `false` in case the switch is ON or OFF, `ZenThing.RESULT_ERROR` on error.
+
 **Example** - Read and log switch state.
 ```javascript
 let state = sw.getState();
