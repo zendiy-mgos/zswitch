@@ -292,14 +292,11 @@ Set the handler for managing switch state (get or set). Returns `true` on succes
 ```javascript
 let success = sw.setEventHandler(function(act, state, ud) {
     print('Switch ID', state.thing.id);
+    let pin = 5;
     if (act === ZenThing.ACT_STATE_SET) {
-      if (state.value) {
-        /* switch ON */
-      } else {
-        /* switch OFF */
-      }
+      GPIO.write(pin, (state.value ? 1: 0));
     } else if (act === ZenThing.ACT_STATE_GET) {
-      state.value = /* current switch state */
+      state.value = (GPIO.read(pin) == 1 ? true : false);
     }
     return true;
   }, null);
