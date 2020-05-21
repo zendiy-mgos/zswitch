@@ -29,8 +29,8 @@ Switch handle. You can get a valid handle using `gos_zswitch_create()`.
 
 |Fields||
 |--|--|
-|id|Switch unique ID|
-|type|Fixed value: `MGOS_ZTHING_SWITCH`.|
+|id|Handle unique ID|
+|type|Handle type. Fixed value: `MGOS_ZTHING_SWITCH`.|
 
 **Example** - Use handle fields.
 ```c
@@ -262,6 +262,13 @@ Create and initialize the switch instance. Returns the instance, or `null` on er
 |*cfg*.inchingTimeout|numeric|Optional. The inching timeout, in milliseconds.|
 |*cfg*.inchingLock|boolean|Optional. If `true`, this flag prevents a switch to be turned OFF before its inching timeout.|
 |*cfg*.switchingTime|numeric|Optional. The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state.|
+
+**Switch instance properties**
+The created instance has following properties.
+|Property|Type||
+|--|--|--|
+|id|string|Instance ID.|
+|type|numeric|Instance type. Fixed value: `ZenSwitch.THING_TYPE`.|
 
 **Example 1** - Create a switch using default configuration values.
 ```js
