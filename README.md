@@ -1,10 +1,13 @@
 # ZenSwitch
 ## Overview
 A Mongoose OS library for Zen Switches ecosystem.
+## GET STARTED
+Build up your own device in few minutes just starting from one of the following samples.
+
 |Sample|Notes|
 |--|--|
-|[zswitch-demo](https://github.com/zendiy-mgos/zswitch-demo)|It shows you how to build a ZenSwitch-based firmware for controlling a relay.|
-|[zswitch-gpio-demo](https://github.com/zendiy-mgos/zswitch-gpio-demo)|It shows you how to build a ZenSwitch-based firmware for controlling a relay.|
+|[zswitch-demo](https://github.com/zendiy-mgos/zswitch-demo)|Mongoose OS demo firmware for using ZenSwitches.|
+|[zswitch-gpio-demo](https://github.com/zendiy-mgos/zswitch-gpio-demo)|Mongoose OS demo firmware for using GPIO-enabled ZenSwitches.|
 ## Usage
 Include the library into your `mos.yml` file.
 ```yaml
