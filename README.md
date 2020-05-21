@@ -278,8 +278,14 @@ Close and destroy the switch instance.
 ### function(act, state, ud)
 ```js
 function stateHandler(act, state, ud) {
-  let success:
-  // ...
+  let success;
+  if (act === ZenThing.ACT_STATE_SET) {
+    // ...
+  } if (act === ZenThing.ACT_STATE_GET) {
+    // ...
+  } else {
+    return false;
+  }
   return success; // true/false
 }
 ```
@@ -287,7 +293,7 @@ Handler signature for `.setStateHandler()`.
 
 |Parameter|Type||
 |--|--|--|
-|act|numeric|State handler.|
+|act|numeric|Handler action. One of the following values: `ZenThing.ACT_STATE_SET` of `ZenThing.ACT_STATE_GET`.|
 |state|object|Switch state.|
 |ud|object|Handler's user data.|
 
