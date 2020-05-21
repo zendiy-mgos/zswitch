@@ -272,14 +272,14 @@ let cfg = {groupId: 1};
 let sw1 = ZenSwitch.create('sw-1', cfg);
 let sw2 = ZenSwitch.create('sw-2', cfg);
 ```
-### <instance>.close()
+### .close()
 ```js
-<instance>.close();
+sw.close();
 ```
 Close and destroy the switch instance.
-### <instance>.setStateHandler()
+### .setStateHandler()
 ```js
-<instance>.setStateHandler(handler, userdata);
+sw.setStateHandler(handler, userdata);
 ```
 Set the handler for managing switch state (get or set). Returns `true` on success, `false` otherwise.
 
@@ -304,18 +304,57 @@ let success = sw.setEventHandler(function(act, state, ud) {
     return true;
   }, null);
 ```
-### <sensor_instance>.getState()
+### .resetStateHandler()
 ```js
-let state = sw.getState();
+sw.resetStateHandler();
 ```
-Create and initialize the switch instance. Returns the instance, or `null` on error.
+Reset the state handler previously set using `.setStateHandler()`.
+### .setState()
+```js
+sw.setState(state);
+```
+Set switch state (ON or OFF). Returns `true` on success, `false` otherwise.
 
 |Parameter|Type||
 |--|--|--|
-|id|string|Unique ZenThing ID|
-|cfg|object|Optional. Switch configuration. If missing, default configuration values are used.|
+|state|boolean|Desired state (`true`=ON, `false`=OFF).|
+**Example** - Turn the switch ON.
+```javascript
+if(sw.setState(true) === true) {
+  print('Switch', sw.id, 'switched ON');
+} else {
+  print('Error switching ON switch', sw.id);
+}
+```
+### .toggleState()
+```js
+sw.toggleState();
+```
+Toggle switch state. Returns the new state (`true` or `false`), `ZenThing.RESULT_ERROR` on error.
 
-
+**Example** - Toggle the switch.
+```javascript
+let state = sw.toggleState();
+if (state === ZenThing.RESULT_ERROR) {
+  print('Error toggling status of switch', sw.id);
+} else {
+  print('Switch', sw.id, 'turned', (state === true  ? 'ON' : 'OFF'));
+}
+```
+### .getState()
+```js
+let state = sw.getState();
+```
+Get switch state. Returns `true` or `false` in case the switch is ON or OFF, `ZenThing.RESULT_ERROR` on error.
+**Example** - Read and log switch state.
+```javascript
+let state = sw.getState();
+if (state === ZenThing.RESULT_ERROR) {
+  print('Error getting status of switch', sw.id);
+} else {
+  print('The switch', sw.id, 'is', (state === true  ? 'ON' : 'OFF'));
+}
+```
 ## Additional resources
 Take a look to some other demo samples.
 
