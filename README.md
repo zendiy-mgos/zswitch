@@ -263,8 +263,7 @@ Create and initialize the switch instance. Returns the instance, or `null` on er
 |*cfg*.inchingLock|boolean|Optional. If `true`, this flag prevents a switch to be turned OFF before its inching timeout.|
 |*cfg*.switchingTime|numeric|Optional. The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state.|
 
-**Switch instance properties**
-The created instance has following properties.
+**Switch instance properties** - The created instance has following properties.
 |Property|Type||
 |--|--|--|
 |id|string|Instance ID.|
