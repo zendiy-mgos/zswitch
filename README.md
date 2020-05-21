@@ -242,3 +242,38 @@ if (state == MGOS_ZTHING_RESULT_ERROR) {
   LOG(LL_INFO, ("Switch '%s' is %s.", sw->id, (state == true ? "ON" : "OFF")));
 }
 ```
+## JS API Reference
+### ZenSwitch.create()
+```js
+ZenSwitch.create(id, cfg);
+```
+Create and initialize the switch instance. Returns the instance, or `null` on error.
+
+|Parameter||
+|--|--|--|
+|id|Unique ZenThing ID|
+|cfg|Optional. Switch configuration. If missing, default configuration values are used.|
+||groupId|Optional. The group to which the switch belongs. Switches in the same group run in interlock mode.|
+||inchingTimeout|Optional. The inching timeout, in milliseconds.|
+||inchingLock|Optional. If `true`, this flag prevents a switch to be turned OFF before its inching timeout.|
+||switchingTime|Optional. The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state.|
+
+**Example 1** - Create a switch using default configuration values.
+```js
+let sw = ZenSwitch.create('sw-1');
+```
+**Example 2** - Create two switches and put them in the same group (interlock mode).
+```js
+let cfg = {groupId: 1};
+let sw1 = ZenSwitch.create('sw-1', cfg);
+let sw2 = ZenSwitch.create('sw-2', cfg);
+```
+### <sensor_instance>.getState()
+
+## Additional resources
+Take a look to some other demo samples.
+
+|Sample|Notes|
+|--|--|
+|[zswitch-gpio-demo](https://github.com/zendiy-mgos/zswitch-gpio-demo)|Mongoose OS demo firmware for using GPIO-enabled ZenSwitches.|
+|[zswitch-mqtt-demo](https://github.com/zendiy-mgos/zswitch-mqtt-demo)|Mongoose OS demo firmware for using MQTT to drive ZenSwitches.|
