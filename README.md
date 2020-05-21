@@ -166,7 +166,10 @@ bool zswitch_state_handler(enum mgos_zthing_state_act act, struct mgos_zswitch_s
     }
   } else if (act == MGOS_ZTHING_STATE_GET) {
     state->value = mgos_gpio_read(pin);
+  } else {
+    return false;
   }
+  
   return true;
   (void) user_data;
 }
@@ -322,6 +325,8 @@ let success = sw.setEventHandler(function(act, state, ud) {
       GPIO.write(pin, (state.value ? 1: 0));
     } else if (act === ZenThing.ACT_STATE_GET) {
       state.value = (GPIO.read(pin) == 1 ? true : false);
+    } else {
+      return false;
     }
     return true;
   }, null);
