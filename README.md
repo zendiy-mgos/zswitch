@@ -7,8 +7,6 @@ Build up your own device in few minutes just starting from one of the following 
 |Sample|Notes|
 |--|--|
 |[zswitch-demo](https://github.com/zendiy-mgos/zswitch-demo)|Mongoose OS demo firmware for using ZenSwitches.|
-|[zswitch-gpio-demo](https://github.com/zendiy-mgos/zswitch-gpio-demo)|Mongoose OS demo firmware for using GPIO-enabled ZenSwitches.|
-|[zswitch-mqtt-demo](https://github.com/zendiy-mgos/zswitch-mqtt-demo)|Mongoose OS demo firmware for using MQTT to drive ZenSwitches.|
 ## Usage
 Include the library into your `mos.yml` file.
 ```yaml
@@ -254,13 +252,13 @@ Create and initialize the switch instance. Returns the instance, or `null` on er
 |id|string|Unique ZenThing ID|
 |cfg|object|Optional. Switch configuration. If missing, default configuration values are used.|
 
-**Configuration properties**
+**Switch configuration properties**
 |Property|Type||
 |--|--|--|
-|groupId|string|Optional. The group to which the switch belongs. Switches in the same group run in interlock mode.|
-|inchingTimeout|numeric|Optional. The inching timeout, in milliseconds.|
-|inchingLock|boolean|Optional. If `true`, this flag prevents a switch to be turned OFF before its inching timeout.|
-|switchingTime|numeric|Optional. The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state.|
+|*cfg*.groupId|string|Optional. The group to which the switch belongs. Switches in the same group run in interlock mode.|
+|*cfg*.inchingTimeout|numeric|Optional. The inching timeout, in milliseconds.|
+|*cfg*.inchingLock|boolean|Optional. If `true`, this flag prevents a switch to be turned OFF before its inching timeout.|
+|*cfg*.switchingTime|numeric|Optional. The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state.|
 
 **Example 1** - Create a switch using default configuration values.
 ```js
@@ -293,11 +291,11 @@ Handler signature for `.setStateHandler()`.
 |state|object|Switch state.|
 |ud|object|Handler's user data.|
 
-**State properties**
+**Switch state properties**
 |Property|Type||
 |--|--|--|
-|thing|object|Switch instance.|
-|value|boolean|Switch state to set/get.|
+|*state*.thing|object|Switch instance.|
+|*state*.value|boolean|Switch state to set/get.|
 ### .setStateHandler()
 ```js
 let success = sw.setStateHandler(handler, userdata);
