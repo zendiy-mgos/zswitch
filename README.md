@@ -153,7 +153,7 @@ Set the handler for managing switch state (get or set). Returns `true` on succes
 |--|--|
 |handle|Switch handle.|
 |handler|State handler.|
-|user_data|Handler's user-data.|
+|user_data|Optional. Handler's user-data.|
 
 **Example** - Set and handler that manages (read/write) switch state unsing a GPIO.
 ```c
@@ -249,10 +249,10 @@ ZenSwitch.create(id, cfg);
 ```
 Create and initialize the switch instance. Returns the instance, or `null` on error.
 
-|Parameter||
-|--|--|
-|id|Unique ZenThing ID|
-|cfg|Optional. Switch configuration. If missing, default configuration values are used.|
+|Parameter|Type||
+|--|--|--|
+|id|string|Unique ZenThing ID|
+|cfg|object|Optional. Switch configuration. If missing, default configuration values are used.|
 
 **Configuration properties**
 |Property|Type||
@@ -272,7 +272,49 @@ let cfg = {groupId: 1};
 let sw1 = ZenSwitch.create('sw-1', cfg);
 let sw2 = ZenSwitch.create('sw-2', cfg);
 ```
+### <instance>.close()
+```js
+<instance>.close();
+```
+Close and destroy the switch instance.
+### <instance>.setStateHandler()
+```js
+<instance>.setStateHandler(handler, userdata);
+```
+Set the handler for managing switch state (get or set). Returns `true` on success, `false` otherwise.
+
+|Parameter|Type||
+|--|--|--|
+|handler|function|State handler.|
+|userdata|object|Optional. Handler's user data.|
+
+**Example** - Set and handler that manages (read/write) switch state unsing a GPIO.
+```javascript
+let success = sw.setEventHandler(function(act, state, ud) {
+    print('Switch ID', state.thing.id);
+    if (act === ZenThing.ACT_STATE_SET) {
+      if (state.value) {
+        /* switch ON */
+      } else {
+        /* switch OFF */
+      }
+    } else if (act === ZenThing.ACT_STATE_GET) {
+      state.value = /* current switch state */
+    }
+    return true;
+  }, null);
+```
 ### <sensor_instance>.getState()
+```js
+let state = sw.getState();
+```
+Create and initialize the switch instance. Returns the instance, or `null` on error.
+
+|Parameter|Type||
+|--|--|--|
+|id|string|Unique ZenThing ID|
+|cfg|object|Optional. Switch configuration. If missing, default configuration values are used.|
+
 
 ## Additional resources
 Take a look to some other demo samples.
