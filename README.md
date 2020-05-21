@@ -63,10 +63,15 @@ Create and initialize the switch instance. Returns the instance handle, or `NULL
 |Parameter||
 |--|--|
 |id|Unique ZenThing ID.|
-|cfg|Optional. Switch configuration. If `NULL`, following defaul configuration values are used: group_id=`MGOS_ZSWITCH_NO_GROUP`, inching_timeout=`MGOS_ZSWITCH_NO_INCHING`, inching_lock=`false`, switching_time=`MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME`.|
+|cfg|Optional. Switch configuration. If `NULL`, following default configuration values are used: group_id=`MGOS_ZSWITCH_NO_GROUP`, inching_timeout=`MGOS_ZSWITCH_NO_INCHING`, inching_lock=`false`, switching_time=`MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME`.|
 
-**Example 1** - Create a switch using default configuration.
+**Example 1** - Create a switch using default configuration values.
 ```c
+// group_id = MGOS_ZSWITCH_NO_GROUP
+// inching_timeout = MGOS_ZSWITCH_NO_INCHING
+// inching_lock= false
+// switching_time = MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME
+
 struct mgos_zswitch *sw = mgos_zswitch_create("sw-1", NULL);
 ```
 **Example 2** - Create two switches and put them in the same (inching) group.
