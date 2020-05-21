@@ -1,6 +1,20 @@
 # ZenSwitch
 ## Overview
 A Mongoose OS library for Zen Switches ecosystem.
+|Sample|Notes|
+|--|--|
+|[zswitch-demo](https://github.com/zendiy-mgos/zswitch-demo)|It shows you how to build a ZenSwitch-based firmware for controlling a relay.|
+|[zswitch-gpio-demo](https://github.com/zendiy-mgos/zswitch-gpio-demo)|It shows you how to build a ZenSwitch-based firmware for controlling a relay.|
+## Usage
+Include the library into your `mos.yml` file.
+```yaml
+libs:
+  - origin: https://github.com/zendiy-mgos/zswitch
+```
+If you are developing a JavaScript firmware, load `api_hcsr04.js` in your `init.js` file.
+```js
+load('api_zswitch.js');
+```
 ## C/C++ API Reference
 ### mgos_zswitch
 ```c
@@ -57,11 +71,7 @@ Switch configuration values for `gos_zswitch_create()`.
 
 **Example** - Create and initialize configuration settings.
 ```c
-// init using defaults:
-//  - MGOS_ZSWITCH_NO_GROUP
-//  - MGOS_ZSWITCH_NO_INCHING
-//  - false
-//  - MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME
+// default cfg {MGOS_ZSWITCH_NO_GROUP, MGOS_ZSWITCH_NO_INCHING, false, MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME}
 struct mgos_zswitch_cfg cfg = MGOS_ZSWITCH_CFG;
 ```
 ### mgos_zswitch_create()
