@@ -9,7 +9,7 @@ struct mgos_zswitch {
   int type;
 };
 ```
-Switch handle. You can get a valid handle using `gos_zswitch_create()` function.
+Switch handle. You can get a valid handle using `gos_zswitch_create()`.
 
 |Fields||
 |--|--|
@@ -53,7 +53,7 @@ Switch configuration values for `gos_zswitch_create()`.
 |group_id|The group to which the switch belongs. Switches in the same group run in interlock mode. Set to `MGOS_ZSWITCH_NO_GROUP` to disable gouping and interlock mode.|
 |inching_timeout|The inching timeout, in milliseconds. Set to `MGOS_ZSWITCH_NO_INCHING` to disable inching mode.|
 |inching_lock|If `true`, this flag prevents a switch to be turned OFF before its inching timeout. Set to `false` to disable the lock.|
-|switching_time|The time, in milliseconds, the physical switch soldered on the circuit board (like a realy) may require to change its state. Set to `MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME ` to use the default 10ms timeout ot set to `0` to disable it.|
+|switching_time|The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state. Set to `MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME ` to use the default 10ms timeout ot set to `0` to disable it.|
 ### mgos_zswitch_create()
 ```c
 struct mgos_zswitch *mgos_zswitch_create(const char *id, struct mgos_zswitch_cfg *cfg);
@@ -151,7 +151,7 @@ mgos_zswitch_state_handler_set(sw, zswitch_state_handler, NULL);
 ```c
 void mgos_zswitch_state_handler_reset(struct mgos_zswitch *handle);
 ```
-Reset the state handler previously set using `mgos_zswitch_state_handler_set()` function.
+Reset the state handler previously set using `mgos_zswitch_state_handler_set()`.
 
 |Parameter||
 |--|--|
