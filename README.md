@@ -37,6 +37,23 @@ Sensor's handle detected.
 Actuator's handle detected.
 Switch's handle detected.
 ```
+### mgos_zswitch_cfg
+```c
+struct mgos_zswitch_cfg {
+  int group_id;
+  int inching_timeout;
+  bool inching_lock;
+  int switching_time;
+};
+```
+Switch configuration values for `gos_zswitch_create()`.
+
+|Fields||
+|--|--|
+|group_id|The group to which the switch belongs. Switches in the same group run in interlock mode. Set to `MGOS_ZSWITCH_NO_GROUP` to disable gouping and interlock mode.|
+|inching_timeout|The inching timeout, in milliseconds. Set to `MGOS_ZSWITCH_NO_INCHING` to disable inching mode.|
+|inching_lock|If `true`, this flag prevents a switch to be turned OFF before its inching timeout. Set to `false` to disable the lock.|
+|switching_time|The time, in milliseconds, the physical switch soldered on the circuit board (like a realy) may require to change its state. Set to `MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME ` to use the default 10ms timeout ot set to `0` to disable it.|
 ### mgos_zswitch_create()
 ```c
 struct mgos_zswitch *mgos_zswitch_create(const char *id, struct mgos_zswitch_cfg *cfg);
@@ -46,7 +63,7 @@ Create and initialize the switch instance. Returns the instance handle, or `NULL
 |Parameter||
 |--|--|
 |id|Unique ZenThing ID.|
-|cfg|Optional. Switch configuration.|
+|cfg|Optional. Switch configuration. If `NULL`, following defaul configuration values are used: group_id=`MGOS_ZSWITCH_NO_GROUP`, inching_timeout=`MGOS_ZSWITCH_NO_INCHING`, inching_lock=`false`, switching_time=`MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME`.|
 
 **Example 1** - Create a switch using default configuration.
 ```c
@@ -88,7 +105,7 @@ typedef bool (*mgos_zswitch_state_handler_t)(enum mgos_zthing_state_act act,
                                              struct mgos_zswitch_state *state,
                                              void *user_data);
 ```
-Handler signature for `mgos_zswitch_state_handler_set()`.  
+Handler signature for `mgos_zswitch_state_handler_set()`.
 
 |Parameter||
 |--|--|
@@ -187,7 +204,7 @@ Get switch state. Returns `true` or `false` in case the switch is ON or OFF, `MG
 |--|--|
 |handle|Switch handle.|
 
-**Example** - Toggle the switch.
+**Example** - Read and log switch state.
 ```c
 int state = mgos_zswitch_state_get(sw);
 if (state == MGOS_ZTHING_RESULT_ERROR) {
