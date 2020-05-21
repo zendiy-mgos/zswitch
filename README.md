@@ -245,7 +245,7 @@ if (state == MGOS_ZTHING_RESULT_ERROR) {
 ## JS API Reference
 ### ZenSwitch.create()
 ```js
-ZenSwitch.create(id, cfg);
+let sw = ZenSwitch.create(id, cfg);
 ```
 Create and initialize the switch instance. Returns the instance, or `null` on error.
 
@@ -277,9 +277,30 @@ let sw2 = ZenSwitch.create('sw-2', cfg);
 sw.close();
 ```
 Close and destroy the switch instance.
+### function(act, state, ud)
+```js
+function stateHandler(act, state, ud) {
+  let success:
+  // ...
+  return success; // true/false
+}
+```
+Handler signature for `.setStateHandler()`.
+
+|Parameter|Type||
+|--|--|--|
+|act|numeric|State handler.|
+|state|object|Switch state.|
+|ud|object|Handler's user data.|
+
+**State properties**
+|Property|Type||
+|--|--|--|
+|thing|object|Switch instance.|
+|value|boolean|Switch state to set/get.|
 ### .setStateHandler()
 ```js
-sw.setStateHandler(handler, userdata);
+let success = sw.setStateHandler(handler, userdata);
 ```
 Set the handler for managing switch state (get or set). Returns `true` on success, `false` otherwise.
 
@@ -308,7 +329,7 @@ sw.resetStateHandler();
 Reset the state handler previously set using `.setStateHandler()`.
 ### .setState()
 ```js
-sw.setState(state);
+let success = sw.setState(state);
 ```
 Set switch state (ON or OFF). Returns `true` on success, `false` otherwise.
 
@@ -326,7 +347,7 @@ if(sw.setState(true) === true) {
 ```
 ### .toggleState()
 ```js
-sw.toggleState();
+let state = sw.toggleState();
 ```
 Toggle switch state. Returns the new state (`true` or `false`), `ZenThing.RESULT_ERROR` on error.
 
