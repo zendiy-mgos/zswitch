@@ -54,6 +54,16 @@ Switch configuration values for `gos_zswitch_create()`.
 |inching_timeout|The inching timeout, in milliseconds. Set to `MGOS_ZSWITCH_NO_INCHING` to disable inching mode.|
 |inching_lock|If `true`, this flag prevents a switch to be turned OFF before its inching timeout. Set to `false` to disable the lock.|
 |switching_time|The time, in milliseconds, the physical switch soldered on the circuit board (like a relay) may require to change its state. Set to `MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME ` to use the default 10ms timeout ot set to `0` to disable it.|
+
+**Example** - Create and initialize configuration settings.
+```c
+// init using defaults:
+//  - MGOS_ZSWITCH_NO_GROUP
+//  - MGOS_ZSWITCH_NO_INCHING
+//  - false
+//  - MGOS_ZSWITCH_DEFAULT_SWITCHING_TIME
+struct mgos_zswitch_cfg cfg = MGOS_ZSWITCH_CFG;
+```
 ### mgos_zswitch_create()
 ```c
 struct mgos_zswitch *mgos_zswitch_create(const char *id, struct mgos_zswitch_cfg *cfg);
@@ -74,7 +84,7 @@ Create and initialize the switch instance. Returns the instance handle, or `NULL
 
 struct mgos_zswitch *sw = mgos_zswitch_create("sw-1", NULL);
 ```
-**Example 2** - Create two switches and put them in the same (inching) group.
+**Example 2** - Create two switches and put them in the same group (interlock mode).
 ```c
 struct mgos_zswitch_cfg cfg = MGOS_ZSWITCH_CFG;
 cfg.group_id = 1;
