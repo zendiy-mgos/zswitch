@@ -27,7 +27,7 @@ struct mgos_zswitch {
 ```
 Switch handle. You can get a valid handle using `gos_zswitch_create()`.
 
-|Fields||
+|Field||
 |--|--|
 |id|Handle unique ID|
 |type|Handle type. Fixed value: `MGOS_ZTHING_SWITCH`.|
@@ -64,7 +64,7 @@ struct mgos_zswitch_cfg {
 ```
 Switch configuration values for `gos_zswitch_create()`.
 
-|Fields||
+|Field||
 |--|--|
 |group_id|The group to which the switch belongs. Switches in the same group run in interlock mode. Set to `MGOS_ZSWITCH_NO_GROUP` to disable gouping and interlock mode.|
 |inching_timeout|The inching timeout, in milliseconds. Set to `MGOS_ZSWITCH_NO_INCHING` to disable inching mode.|
@@ -122,7 +122,7 @@ struct mgos_zswitch_state {
 ```
 Switch state for `(*mgos_zswitch_state_handler_t)`.  
 
-|Fields||
+|Field||
 |--|--|
 |handle|Switch handle|
 |state|Switch state.|
@@ -252,7 +252,7 @@ Create and initialize the switch instance. Returns the instance, or `null` on er
 
 |Parameter|Type||
 |--|--|--|
-|id|string|Unique ZenThing ID|
+|id|string|Unique ZenThing ID.|
 |cfg|object|Optional. Switch configuration. If missing, default configuration values are used.|
 
 **Switch configuration properties**
