@@ -29,7 +29,7 @@ Switch handle. You can get a valid handle using `gos_zswitch_create()`.
 
 |Field||
 |--|--|
-|id|Handle unique ID|
+|id|Handle unique ID.|
 |type|Handle type. Fixed value: `MGOS_ZTHING_SWITCH`.|
 
 **Example** - Use handle fields.
