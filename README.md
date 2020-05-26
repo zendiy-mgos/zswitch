@@ -13,7 +13,7 @@ Include the library into your `mos.yml` file.
 libs:
   - origin: https://github.com/zendiy-mgos/zswitch
 ```
-If you are developing a JavaScript firmware, load `api_hcsr04.js` in your `init.js` file.
+If you are developing a JavaScript firmware, load `api_zswitch.js` in your `init.js` file.
 ```js
 load('api_zswitch.js');
 ```
