@@ -1,6 +1,6 @@
 # ZenSwitch
 ## Overview
-A Mongoose OS library for Zen Switches ecosystem.
+A Mongoose OS library for ZenSwitches ecosystem.
 ## GET STARTED
 Build up your own device in few minutes just starting from one of the following samples.
 
