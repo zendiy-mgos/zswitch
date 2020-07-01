@@ -73,7 +73,7 @@ let ZenSwitch = {
     let sd = this._stated(); 
     let s = s2o(state, sd);
     return {
-      thing: ZenThing._getTFromH(s.handle),
+      thing: ZenThing.getFromHandle(s.handle),
       value: s.value
     };
   },
