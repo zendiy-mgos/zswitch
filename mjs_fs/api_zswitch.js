@@ -68,7 +68,10 @@ let ZenSwitch = {
     return obj;
   },
 
-  // convert strucy zswitch_state to js object {value:<bool>, thing:<ZenSwitch>}
+  // convert struct mgos_zswitch_state to javascript object: {
+  //   thing: <ZenSwitch instance>,
+  //   value: <bool>
+  // }
   parseState: function(state) {
     let sd = this._stated(); 
     let s = s2o(state, sd);
